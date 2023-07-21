@@ -9,3 +9,18 @@ Technically, this also counts as prep for an eventual PCA
             - duration
             - parent ID
     - Prometheus collects and aggregates metrics, not logs or traces
+### Prometheus Fundamentals
+- Use Case
+- Basics
+- Architecture
+- Installation
+- Installation systemd
+- Node Exporter
+- Node exporter systemd
+- Configuration
+- Authentication / encryption
+- Metrics
+- Exploring Expression Browser
+- Prometheus in Container
+- Intro to PromTools
+- Monitoring Containers
