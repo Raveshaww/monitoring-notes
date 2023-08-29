@@ -245,3 +245,14 @@ Technically, this also counts as prep for an eventual PCA
     - will need to set up special files for each service
         - i.e. `/etc/docker/daemon.json` for docker
         - use a container to run cAdvisor
+### PromQL
+- Selectors and Matchers
+- Modifiers
+- Operators
+- Vector Matching
+- Aggregation
+- Functions
+- Subquery
+- Histogram / Summary
+- Recording Rules
+- HTTP API
