@@ -350,4 +350,13 @@ Technically, this also counts as prep for an eventual PCA
     - sent a post request to `http://<prometheus-ip>/api/v1/query`
 ### Dashboarding and Visualization
 - Expression Browser
+    - simple graphs
+    - useful for adhoc queries
+    - no ability for custom dashboards
 - Console Templates
+    - allow you to create your own custom html pages using Go templates
+    - these are saved to `/etc/prometheus/consoles/`
+    - you would navigate to the console like this:
+        - `https://9090-port-09e9eca4fca24095.labs.kodekloud.com/consoles/node-stats.html`
+    - example file is at 
+        - `./example_consoles/node-stats.html`
