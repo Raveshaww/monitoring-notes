@@ -360,3 +360,9 @@ Technically, this also counts as prep for an eventual PCA
         - `https://9090-port-09e9eca4fca24095.labs.kodekloud.com/consoles/node-stats.html`
     - example file is at 
         - `./example_consoles/node-stats.html`
+### Application Instrumentation
+- Basics
+- Labels
+- Histogram / Summary
+- Gauge
+- Best practices
