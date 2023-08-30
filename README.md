@@ -410,5 +410,31 @@ Technically, this also counts as prep for an eventual PCA
     - this is specified in `scrape_configs` in `prometheus.yml`
 ### Push Gateway
 - Installation
+    - download push gateway
+    - untar
+    - cd into dir
+    - `sudo useradd --no-create-home --shell /bin/false pushgateway`
+    - `sudo cp pushgateway /usr/local/bin`
+    - `chown pushgateway:pushgateway /usr/local/bin/pushgateway`
+    - configure systemd:
+        ```
+        [Unit]
+        Description=Prometheus Pushgateway
+        Wants=network-online.target
+        After=network-online.target
+        
+        [Service]
+        User=pushgateway
+        Group=pushgateway
+        Type=simple
+        ExecStart=/usr/local/bin/pushgateway
+
+        [Install]
+        WantedBy=multi-user.target
+        ```
+    - restart daemon and service, enable service
+    - default is on 9091/metrics
+    - configure `prometheus.yml`
+        - mostly similar to how you update other targets, but you have to make sure to set `honor_labels: true`
 - Pushing Metrics
-- Client Library
+    - you can send a http request to a pushgateway to get it to send a metric, or you can use the client libs
