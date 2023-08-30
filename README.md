@@ -403,5 +403,8 @@ Technically, this also counts as prep for an eventual PCA
                 - last time a job completed
 ### Service discovery
 - file
-- aws
+    - a list of jobs / targets can be imported from a file
+    - supports json and yaml files
 - re-labeling
+    - allows you to classify / filter targets and metrics by rewriting their label set
+    - this is specified in `scrape_configs` in `prometheus.yml`
