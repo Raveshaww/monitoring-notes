@@ -438,3 +438,65 @@ Technically, this also counts as prep for an eventual PCA
         - mostly similar to how you update other targets, but you have to make sure to set `honor_labels: true`
 - Pushing Metrics
     - you can send a http request to a pushgateway to get it to send a metric, or you can use the client libs
+### Alerting
+- Intro
+    - conditions are just standard promql expressions
+    - config is similar to recording rule
+    - the `for` label means that Prom needs to evaluate the expression true for a specified period of time
+- Labels and Annotations
+    - labels can be added
+        - this can provide additional info in the alert's identity
+            - like severity
+    - annotations are just there for an extra description
+    - uses Go's templating language
+- Alertmanager architecture
+    - alertmanager is responsible for receiving alerts and converting them into notifications
+    - flow goes like this:
+        - api gets alert and sends it to dispatcher
+        - dispatcher puts it into inhibition and can silence certain things, like when you're working on maintenance 
+        - alerts are routed to the proper service
+- Alertmanager installation
+    - download
+    - untar
+    - cd into dir
+    - configure prometheus to use the alert manager under the `alertmanagers` section
+- Alertmanager SystemD service
+    - add user for alertmanger
+    - create `/etc/alertmanager`
+    - move `alertmanager.yml` to that dir
+    - change permissions on dir
+    - make `/var/lib/alertmanager`
+    - update perms on dir
+    - cp alertmanager to /usr/local/bin
+    - cp amtool to /usr/local/bin
+    - update perms
+    - create systemd service
+        ```
+        [Unit]
+        Description=Alert Manager
+        Wants=network-online.target
+        After=network-online.target
+        
+        [Service]
+        User=alertmanager
+        Group=alertmanager
+        Type=simple
+        ExecStart=/usr/local/bin/alertmanager.yml \
+            --config.file=/etc/alertmanager/alertmanager.yml \
+            --storage.path=/var/lib/alertmanager
+        Restart=always
+
+        [Install]
+        WantedBy=multi-user.target
+        ```
+    - restart daemon, enable, and start
+- Config
+    - how the alert manager works is configured in `alertmanager.yml`
+        - this includes smtp, receivers, and routes
+    - there is a fallback route
+    - you can have a route nested in another route
+        - this is useful for notifying several things for one issue
+    - by default, an alert will operate on the first route it matches unless the `continue: true` flag is set
+- Receivers and Notifiers
+    - receivers are responsible for taking grouped alerts and producing notifications
+    - uses Go templating
