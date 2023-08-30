@@ -348,3 +348,6 @@ Technically, this also counts as prep for an eventual PCA
 - HTTP API
     - basically allows you to use execute queries as well as gather information on alerts and etc
     - sent a post request to `http://<prometheus-ip>/api/v1/query`
+### Dashboarding and Visualization
+- Expression Browser
+- Console Templates
