@@ -408,3 +408,7 @@ Technically, this also counts as prep for an eventual PCA
 - re-labeling
     - allows you to classify / filter targets and metrics by rewriting their label set
     - this is specified in `scrape_configs` in `prometheus.yml`
+### Push Gateway
+- Installation
+- Pushing Metrics
+- Client Library
