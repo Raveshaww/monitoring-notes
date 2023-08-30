@@ -362,7 +362,42 @@ Technically, this also counts as prep for an eventual PCA
         - `./example_consoles/node-stats.html`
 ### Application Instrumentation
 - Basics
+    - for example, in python code, import the library and create a metric within the code
+    - use where you want. For example, create a counter metric and increase it when you'd like
+    - the prometheus client has its own http server that will expose a /metric endpoint
+        - you can import this into the python code and start it from there
+    - you can also do it via a more framework native way, but this requires you to look at the documentation more
 - Labels
-- Histogram / Summary
-- Gauge
-- Best practices
+    - you can add labels in the code without creating a new metric
+        - `REQUESTS.labels('/cars', 'get').inc()`
+- Best practices   
+    - naming
+        - metrics should follow `snake_case`
+        - the first word of the metric should be used for the app/library it's used for
+            - i.e. `postgres_`
+        - then the name portion
+            - i.e. `postgres_queue_size`
+        - then the unit
+            - i.e. `postgres_queue_size_bytes`
+            - avoids prefixes
+    - what to instrument
+        - online-serving systems
+            - where an immediate response is expected
+            - track these:
+                - number of queries / requests
+                - number of errors
+                - latency
+                - number of in progress requests
+        - offline processing service
+            - patch up work
+            - track these
+                - amount of queued work
+                - amount of work in progress
+                - rate of processing
+                - errors
+        - batch jobs
+            - will require a pushGateway as it isn't getting continously scraped
+            - track these:
+                - time processing each stage of job
+                - overall runtime
+                - last time a job completed
