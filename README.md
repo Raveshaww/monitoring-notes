@@ -401,3 +401,7 @@ Technically, this also counts as prep for an eventual PCA
                 - time processing each stage of job
                 - overall runtime
                 - last time a job completed
+### Service discovery
+- file
+- aws
+- re-labeling
