@@ -500,3 +500,40 @@ Technically, this also counts as prep for an eventual PCA
 - Receivers and Notifiers
     - receivers are responsible for taking grouped alerts and producing notifications
     - uses Go templating
+### Monitoring k8s
+- Intro
+    - every host should run a node_exporter
+        - yay daemonsets
+    - the k8s api can help with service discovery
+    - `kube-prometheus-stack` helm chart is the easiest way to install into cluster
+- Prom Chart Overview
+    - creates the following: 
+        - creates 2 statefulsets
+            - prometheus server
+            - alertmanager
+        - creates 3 deployments
+            - grafana
+            - prometheus-operator
+                - manage the lifecycle of the prom instance
+            - kube-state-metrics
+                - gets data on k8s objects and exposes it
+        - creates 1 daemonset
+            - node exporter
+        - creates 9 services
+    - when you wanna access grafana or prometheus, you'll have to set something up as the services are ClusterIP by default
+- Additional Scrape Configs
+    - two different ways
+        - less ideal
+            - configure helm values file
+                - search for `additional scrape configs`
+        - more ideal
+            - service monitors
+- Service Monitors
+    - defines a set of targets for prometheus to monitor and scrape
+    - this lets you avoid touching the prometheus configs
+    - uses CRD, so it's just another k8s resource
+    - kinda feels like an ingress file
+- Adding Rules
+    - uses a CRD called `prometheusrules`
+- Alertmanager rules
+    - yet another CRD!
